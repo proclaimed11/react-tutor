@@ -1,0 +1,9 @@
+div.div1 {
+  width: 300px;
+  height: 100px;
+  padding: 40px;
+  border: 1px solid red;
+  box-sizing: border-box;
+}
+
+/* add border-box sizing to div.div1 to include padding and border in the element's total width and height */

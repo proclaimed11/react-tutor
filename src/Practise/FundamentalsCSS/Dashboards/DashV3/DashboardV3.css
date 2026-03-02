@@ -1,0 +1,127 @@
+body{
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+}
+
+.DashboardV3{
+    display:grid;
+    min-height:100vh;
+    grid-template-columns: 150px auto;
+    grid-template-rows:75px 1fr 50px;
+    grid-template-areas:
+    "sidebar header"
+    "sidebar main"
+    "sidebar footer";
+}
+
+.HeaderV3{
+    grid-area:header;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightblue;
+    border: 1px solid whitesmoke;
+}
+
+.SidebarV3{
+    grid-area:sidebar;
+    display:flex;
+    flex-direction: column;
+    background-color: darkslateblue;
+    color:whitesmoke;
+    border: 1px solid whitesmoke;
+}
+
+.LogoV3{
+    display:flex;
+    justify-content: center;
+    padding:20px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+nav{
+    padding-left: 10px;
+}
+
+.FooterV3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area:footer;
+    background-color: lightgray;
+    padding:10px;
+    border: 1px solid whitesmoke;
+}
+
+.MainV3{
+    grid-area:main;
+    display:flex;
+    flex-direction: column;
+    background-color: white;
+    color:whitesmoke;
+    border: 1px solid whitesmoke;
+    gap:5px;
+    padding: 5px;
+}
+
+.WidgetsV3{
+    display: flex;
+    gap:5px;
+    height: 15%;
+    width: 100%;
+}
+
+.W1,.W2,.W3,.W4,.W5{
+    display: flex;
+    background-color: darkcyan;
+    width: 20%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.ContentV3{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap:5px;
+}
+
+.Content-top{
+    display:flex;
+    color:black;
+    background-color: beige;
+    justify-content: center;
+    align-items: center;
+    height:45%;
+    border-radius: 5px;
+}
+
+.Content-bottom{
+    display:flex;
+    color:black;
+    height:55%; 
+    width: 100%;
+    gap: 5px;
+}
+
+.Content-bottom1{
+    background-color: beige;
+    display:flex;
+    color:black;
+    justify-content: center;
+    align-items: center;
+    width:50%; 
+}
+
+.Content-bottom2{
+    background-color: beige;
+    display:flex;
+    color:black;
+    justify-content: center;
+    align-items: center;
+    width:50%; 
+}

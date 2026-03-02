@@ -1,0 +1,101 @@
+body{
+    margin:0;
+    padding:0;
+    height:100%;
+    width:100%;
+}
+
+.DashboardV4{
+    display: grid;
+    min-height: 100Vh;
+    grid-template-columns: 150px auto;
+    grid-template-rows: 60px 1fr 45px;
+    grid-template-areas:
+    "sidebar header"
+    "sidebar main"
+    "sidebar footer"
+    ;
+}
+
+.HeaderV4{
+    grid-area: header;
+    background-color: burlywood;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.FooterV4{
+    grid-area: footer;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.SidebarV4{
+  grid-area: sidebar;
+  display:flex;
+  color: beige;
+  flex-direction:column;
+  background-color: rgb(3, 77, 77);
+}
+
+.LogoV4{
+    display: flex;
+    justify-content: center;
+    padding:5px;
+    margin-bottom: 10px;
+}
+
+nav{
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+.MainV4{
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+    padding:5px;
+}
+
+.WidgetsV4{
+    display: flex;
+    flex: 0 0 70px;
+    color: beige;
+    gap:5px;
+}
+
+.WOneV4,.WTwoV4,.WThreeV4,.WFourV4,.WFiveV4{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: darkcyan;
+    flex: 1;
+    border-radius:5px;
+}
+
+.ContentTopV4{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: khaki;
+    flex:4;
+    border-radius: 5px;
+}
+
+.ContentBottomV4{
+    display:flex;
+    flex:5;
+    gap:5px;
+}
+
+.CBOneV4,.CBTwoV4{
+ display: flex;
+ background-color: khaki;
+ justify-content: center;
+ align-items: center;
+ flex: 1;
+ border-radius: 5px;
+}

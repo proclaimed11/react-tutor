@@ -1,0 +1,12 @@
+h1.double{
+ margin:auto;
+}
+
+p.par1{
+  margin: 20px 20px 20px 20px;
+}
+
+p.par2{
+  margin-top: 20px;
+  margin-bottom:40px;
+}

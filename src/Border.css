@@ -1,0 +1,32 @@
+h1.double{
+   border-style: double; 
+   border-width:medium;
+   border-color: purple blue;
+}
+
+p.par1{
+  border-style:dashed;
+  /*border-width: 4px 2px 3px 1px;*/
+  border-top-width: 4px;
+}
+
+p.par2{
+  border-top-style:solid;
+}
+
+p.par3{
+  border-style: dotted groove solid dashed;
+  border-radius:5px;
+}
+
+p.par4{
+  border: 7px solid green;
+}
+
+p.par5{
+  border-left: 5px solid blue;
+  border-radius:5px;
+}
+
+/* NB: border-width/color/style: {top right bottom left}property order */
+

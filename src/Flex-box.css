@@ -1,0 +1,28 @@
+div.flex-container{
+   display:flex; 
+   height:300px;
+   width:300px;
+   background-color:aquamarine;
+   margin:10px;
+   flex-direction: row;
+   border: 2px dashed black;
+   padding:10px;
+   flex-wrap:wrap;
+   box-sizing:border-box;
+   justify-content:center; 
+   align-items:center;
+}
+
+div.flex-container div {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100px;
+  width:100px;
+  background-color: #f1f1f1;
+  margin: 10px;
+  border: 1px solid green;
+  padding: 10px;
+  font-size: 50px;
+  box-sizing:border-box;
+}

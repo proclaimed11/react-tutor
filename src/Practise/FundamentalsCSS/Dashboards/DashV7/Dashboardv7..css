@@ -1,0 +1,146 @@
+html,body{
+    margin:0px;
+    padding:0px;
+    height:100%;
+    width:100%;
+}
+
+.DashboardV7{
+    display:grid;
+    height:100vh;
+    grid-template-columns: 150px auto;
+    grid-template-rows: 50px auto 40px;
+    grid-template-areas:
+    "sidebar header"
+    "sidebar main"
+    "sidebar footer"
+}
+
+.HeaderV7{
+  grid-area:header; 
+  display: flex;
+  background-color: beige; 
+  justify-content: center;
+  align-items: center;
+}
+
+.FooterV7{
+  grid-area:footer; 
+  display: flex;
+  background-color: gainsboro; 
+  justify-content: center;
+  align-items: center;
+}
+
+
+.SidebarV7{
+  grid-area:sidebar; 
+  display: flex;
+  flex-direction: column;
+  background-color:darkblue;
+  color: white; 
+}
+
+.LogoV7{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding:5px;
+    margin-bottom: 5px;
+}
+
+.ScrollableMainV7{
+    overflow-y: auto;
+    display: flex;
+    padding:5px;
+    flex-direction: column;
+    gap:5px;
+}
+
+.WidgetV7{
+    display: flex;
+    flex:0 0 60px;
+    color:white;
+    gap:5px;
+}
+
+.WOneV7,.WTwoV7,.WThreeV7,.WFourV7,.WFiveV7{
+    display: flex;
+    background-color: darkcyan;
+    border-radius: 3px;
+    align-items: center;
+    flex:1;
+    justify-content: center;
+}
+
+.ContentTopV7{
+    display: flex;
+    gap:5px;
+    min-height: 250px;
+}
+
+.TopLeftV7{
+    display: flex;
+    overflow-x: auto;
+    flex:1;
+    gap:5px;
+}
+
+.TL1,.TL2,.TL3{
+    display: flex;
+    background-color: khaki;
+    align-items: center;
+    justify-content: center;
+    min-width:250px;
+    border-radius:3px;
+}
+
+.TopRightV7{
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+    flex:0 0 250px;
+    flex:1;
+    gap:5px;
+}
+
+.TR1,.TR2,.TR3{
+    display: flex;
+    background-color: khaki;
+    align-items: center;
+    min-height: 250px;
+    justify-content: center;
+    border-radius:3px;
+}
+
+.ContentBottomV7{
+    display: flex;
+    flex:0 0 250px;
+    gap:5px;
+}
+
+.BottomLeft1,.BottomRight1{
+    display: flex;
+    background-color: khaki;
+    align-items: center;
+    flex:1;
+    justify-content: center;
+    border-radius:3px;
+}
+
+.Content2BottomV7{
+    display: flex;
+    flex:0 0 250px;
+    gap:5px;
+}
+
+.BottomLeft2,.BottomRight2{
+    display: flex;
+    background-color: khaki;
+    align-items: center;
+    flex:1;
+    justify-content: center;
+    border-radius:3px;
+}
+
+

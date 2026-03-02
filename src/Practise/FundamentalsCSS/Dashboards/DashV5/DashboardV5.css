@@ -1,0 +1,103 @@
+html,body{
+    margin: 0;
+    padding:0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.DashboardV5{
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 150px auto;
+    grid-template-rows: 70px auto 40px;
+    grid-template-areas: 
+    "sidebar header"
+    "sidebar main"
+    "sidebar footer"
+    ;
+}
+
+.HeaderV5{
+    grid-area:header;
+    background-color: beige;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.FooterV5{
+     grid-area:footer;
+    background-color:lightslategrey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.SidebarV5{
+    grid-area:sidebar;
+    background-color:rgb(6, 77, 77);
+    display: flex;
+    flex-direction: column;
+    color:whitesmoke;
+}
+
+.LogoV5{
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.MainV5{
+    grid-area: main;
+    display:flex;
+    flex-direction:column;
+    padding:5px;
+    gap:5px;
+    overflow-y: auto; 
+    /* overflow: hidden; */
+}
+
+.WidgetsV5{
+    display: flex;
+    gap:5px;
+    flex:0 0 60px;
+    color: whitesmoke;
+}
+
+.WOneV5,.WTwoV5,.WThreeV5,.WFourV5,.WFiveV5{
+    display: flex;
+    background-color: rgb(70, 223, 70);
+    flex:1;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.ContentTopV5{
+    display: flex;
+    /* flex:4; */
+    min-height: 200px;
+    background-color:khaki;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.ContentBottomV5{
+    display:flex;
+    /* flex:5; */
+    gap:5px;
+    min-height: 300px;
+}
+
+.CBOneV5,.CBTwoV5{
+ display: flex;
+ background-color: khaki;
+ justify-content: center;
+ align-items: center;
+ flex: 1;
+ border-radius: 5px;
+}

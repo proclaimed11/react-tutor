@@ -1,0 +1,130 @@
+html, body{
+    margin:0px;
+    padding:0px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+
+.DashboardV6{
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 150px auto;
+    grid-template-rows:70px auto 50px;
+    grid-template-areas:
+    "sidebar header"
+    "sidebar main"
+    "sidebar footer"
+}
+
+.HeaderV6{
+    grid-area:header;
+    background-color: beige;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.FooterV6{
+    grid-area:footer;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.SidebarV6{
+    grid-area:sidebar;
+    background-color: darkslateblue;
+    display: flex;
+    color: white;
+    flex-direction: column;
+}
+
+.LogoV6{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:10px;
+}
+
+.ScrollableMainV6{
+    grid-area:main;
+    display:flex;
+    flex-direction: column;
+    padding:5px;
+    gap:5px;
+    overflow-y: auto;
+    min-height: 0px;
+}
+
+.WidgetsV6{
+    display:flex;
+    color:beige;
+    gap:5px;
+    flex:0 0 60px;
+}
+
+.WOneV6,.WTwoV6,.WThreeV6,.WFourV6,.WFiveV6{
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex:1;
+     background-color: teal;
+     border-radius: 5px;
+     padding:5px
+}
+
+.ContentTopV6{
+    display: flex;
+    gap:5px;
+    max-height:250px;
+}
+
+.SectionLeftV6{
+    display: flex;
+    gap: 5px;
+    flex:2;
+    overflow-x: auto;
+}
+
+.TopLeftOneV6,.TopLeftTwoV6,.TopLeftThreeV6{
+    display: flex;
+    background-color: khaki;
+    justify-content: center;
+    align-items: center;
+    min-width: 300px;
+}
+
+.SectionRightV6{
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    max-height:250px;
+    flex:1;
+    overflow-y: auto;
+}
+
+.TopRightOneV6,.TopRightTwoV6,.TopRightThreeV6{
+    display: flex;
+    background-color: khaki;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+}
+
+.ContentBottomV6{
+    display: flex;
+    gap:5px;
+    min-height:200px;
+}
+
+.BottomOneV6,.BottomTwoV6{
+    display: flex;
+    background-color: khaki;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
