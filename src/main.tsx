@@ -22,6 +22,7 @@ import SquadManagerV3 from './Practise/FundamentalsReact/projects/phaseOneV3.tsx
 import SquadMangerV4 from './Practise/FundamentalsReact/projects/phaseOneV4.tsx';
 import DashboardV8 from './Practise/FundamentalsCSS/Dashboards/DashV8/DashboardV8.tsx';
 import UseEffect from './Practise/FundamentalsReact/UseEffect.tsx';
+import SquadManagerV4 from './Practise/FundamentalsReact/projects/phaseOneV4.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -57,7 +58,7 @@ createRoot(document.getElementById('root')!).render(
 
     {/* <SquadManagerV3/>  */}
 
-    {/* <SquadMangerV4/> */}
+    <SquadManagerV4/>
 
   
   </StrictMode>,
