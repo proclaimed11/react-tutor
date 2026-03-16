@@ -58,7 +58,7 @@ createRoot(document.getElementById('root')!).render(
 
     {/* <SquadManagerV3/>  */}
 
-    <SquadManagerV4/>
+    {/* <SquadManagerV4/> */}
 
   
   </StrictMode>,

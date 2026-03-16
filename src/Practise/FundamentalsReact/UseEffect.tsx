@@ -19,10 +19,11 @@ const UseEffect =()=>{
             console.log("Tick tock time is up")
         },1000);
 
+        //the cleanup
         return ()=>{
             clearInterval(timer);
             console.log("Time just stopped")
-        } //the cleanup
+        }
     },[])
 
     return(
