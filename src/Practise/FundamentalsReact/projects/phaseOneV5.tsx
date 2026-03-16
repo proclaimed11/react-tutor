@@ -178,6 +178,8 @@ const SquadManager5=()=>{
     <form onSubmit={handleAddPlayer}>
     <label htmlFor="name">Name &nbsp;&nbsp;</label>&nbsp;&nbsp;
     <input name="name" onChange={handleInputChange} type="text" value={newPlayer.name} placeholder="Eg Declan Rice"/>&nbsp;&nbsp;
+    {errors.name && <span style={{color:"red"}}>{errors.name}</span>}&nbsp;&nbsp;
+    
         <label htmlFor="team">Team &nbsp;&nbsp;</label>&nbsp;&nbsp;
         <select name="team" onChange={handleInputChange} value={newPlayer.team}>
         <option value="Arsenal">Arsenal</option>
@@ -185,6 +187,7 @@ const SquadManager5=()=>{
         <option value="Man Utd">Man Utd</option>
         <option value="Man City">Man City</option>
     </select>&nbsp;&nbsp;
+
     <label htmlFor="position">Position &nbsp;&nbsp;</label>&nbsp;&nbsp;
     <select name="position" onChange={handleInputChange} value={newPlayer.position}>
         <option value="Forward">Forward</option>
@@ -192,8 +195,11 @@ const SquadManager5=()=>{
         <option value="Defender">Defender</option>
         <option value="GoalKeeper">GoalKeeper</option>
     </select>&nbsp;&nbsp;
+
     <label htmlFor="goals">Goals &nbsp;&nbsp;</label>&nbsp;&nbsp;
     <input name="goals" onChange={handleInputChange} type="number" value={newPlayer.name} placeholder="Eg 20"/>&nbsp;&nbsp;
+    {errors.goals && <span style={{color:"red"}}>{errors.goals}</span>}&nbsp;&nbsp;
+
     <button type="submit">Add ➕</button>&nbsp;&nbsp;
     </form>
 
