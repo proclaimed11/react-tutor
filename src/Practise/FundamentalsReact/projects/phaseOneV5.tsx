@@ -20,14 +20,50 @@ title?:string,
 OnTrain:(player:T)=>void,
 OnReset:(player:T)=>void,
 OnRest:(player:T)=>void,
+OnUpdate:(player:T)=>void,
 OnRemove:(playerId:number)=>void,
 }
 
 const PlayerProfile=(prop:PlayerProps<Player>)=>{
+    const [editingId, setEditingId] = useState<number | null>(null);
+
+    const [editform, setEditForm] = useState<Partial<Player>>({}) // the form can have the same parameters as  the player but still some fields can still be missing
+
     const energyColors=(value:number):string=>{
     if(value >= 70) return "green";
     if(value >= 30) return "orange";
      return "red";
+    }
+
+    const startEditing = (player:Player) =>{
+    setEditingId(player.id);
+    setEditForm({...player}) 
+    }
+
+    const handleEditChange=(e:ChangeEvent<HTMLSelectElement | HTMLInputElement>)=>{
+      const {name,value} = e.target;
+      setEditForm((prev)=>({
+        ...prev,
+        [name]:value
+      }));
+    }
+
+    const saveEdit=(playerId:number)=>{
+    if(!editform.name?.trim()) return;
+
+    const updated = {
+        ...prop.players.find((p)=>p.id === playerId)!,
+        ...editform,
+    };
+
+    prop.OnUpdate(updated);
+    setEditingId(null);
+    setEditForm({});
+    };
+
+    const cancelEdit=()=>{
+        setEditingId(null);
+        setEditForm({});
     }
 
     return(
@@ -203,14 +239,14 @@ const SquadManager5=()=>{
     <button type="submit">Add ➕</button>&nbsp;&nbsp;
     </form>
 
-    <PlayerProfile
+    {/* <PlayerProfile
     players={players}
     title="Squad Lists"
     OnTrain={handleTrain}
     OnReset={handleReset}
     OnRest={handleRest}
     OnRemove={handleRemove}
-    />
+    /> */}
     </>
   )
 }
