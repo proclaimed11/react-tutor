@@ -55,7 +55,7 @@ createRoot(document.getElementById('root')!).render(
 
       {/* <Usestate/> */}
 
-      <UseEffect/>
+      {/* <UseEffect/> */}
 
     {/* <SquadManagerV3/>  */}
 

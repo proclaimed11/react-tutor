@@ -20,3 +20,16 @@
 ~ Pull:command "git pull origin [branch]"
 ~ Push:command "git push origin [branch]"
       
+7.Separation of Features/Code -Creating branches
+   - Create a new branch and be located to that branch
+    ~command "git checkout -b [new branch]"
+
+   - To switch between branches
+    ~command "git checkout [branch]"
+
+   - To delete branches
+   ~command "git branch -d [branch]"
+
+   - Commit your code to the new branch
+   ~command "git push origin [branch]"
+     

@@ -1,255 +1,300 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
 
-type Team = "Arsenal" | "Liverpool" | "Man Utd" | "Man City";
+type Team = "Arsenal" | "Chelsea" | "Man City";
 
-type Position = "Forward" | "Midfielder" | "Defender" | "GoalKeeper";
-
+type Position = "Forward" | "MidFielder" | "Defender" | "GoalKeeper";
 
 interface Player{
     id:number,
     name:string,
     position:Position,
     team:Team,
-    goals:number,
+    goals?:number,
     energy:number
 }
 
 interface PlayerProps<T>{
-players:T[],
-title?:string,
-OnTrain:(player:T)=>void,
-OnReset:(player:T)=>void,
-OnRest:(player:T)=>void,
-OnUpdate:(player:T)=>void,
-OnRemove:(playerId:number)=>void,
+    players:T[],
+    title?:string,
+    onTrain:(player:T)=>void,
+    onRest:(player:T)=>void,
+    onReset:(player:T)=>void,
+    onRemove:(playerId:number)=>void,
+    onUpdate:(player:T)=>void,
 }
 
 const PlayerProfile=(prop:PlayerProps<Player>)=>{
-    const [editingId, setEditingId] = useState<number | null>(null);
+const [editId, setEditId] = useState<number | null>(null);
+const [editForm, setEditForm] = useState<Partial<Player>>({});
 
-    const [editform, setEditForm] = useState<Partial<Player>>({}) // the form can have the same parameters as  the player but still some fields can still be missing
+const startEdit=(player:Player)=>{
+setEditId(player.id);
+setEditForm(player);
+}
 
-    const energyColors=(value:number):string=>{
-    if(value >= 70) return "green";
-    if(value >= 30) return "orange";
-     return "red";
-    }
+const handleEditChange=(e:ChangeEvent<HTMLSelectElement | HTMLInputElement>)=>{
+const {name,value} = e.target;
+setEditForm((prev)=>({
+...prev,
+[name]:value
+}))
+}
 
-    const startEditing = (player:Player) =>{
-    setEditingId(player.id);
-    setEditForm({...player}) 
-    }
+const saveEdit=(playerId:number)=>{
+if(!editForm.name?.trim()) return;
 
-    const handleEditChange=(e:ChangeEvent<HTMLSelectElement | HTMLInputElement>)=>{
-      const {name,value} = e.target;
-      setEditForm((prev)=>({
-        ...prev,
-        [name]:value
-      }));
-    }
+const updated ={
+...prop.players.find((p)=>p.id===playerId)!,
+...editForm
+}
 
-    const saveEdit=(playerId:number)=>{
-    if(!editform.name?.trim()) return;
+prop.onUpdate(updated);
+setEditId(null);
+setEditForm({});
+}
 
-    const updated = {
-        ...prop.players.find((p)=>p.id === playerId)!,
-        ...editform,
-    };
-
-    prop.OnUpdate(updated);
-    setEditingId(null);
+const cancel=()=>{
+    setEditId(null);
     setEditForm({});
-    };
+}
 
-    const cancelEdit=()=>{
-        setEditingId(null);
-        setEditForm({});
-    }
+const energyColor=(value:number):string=>{
+if(value > 70){return "green"};
+if(value > 30){return "orange"};
+return "red";
+}
 
+return(
+<>
+{prop.players.map((player)=>{
+    const isEditing = player.id === editId;
+    const currentOp = isEditing ? {...player,...editForm} : player;
+    
     return(
-        <>
-        {prop.players.map((player)=>(
-            <p key={player.id}>
-            <span><strong>Name:&nbsp;&nbsp;</strong>{player.name}</span>&nbsp;&nbsp;
-            <span><strong>Position:&nbsp;&nbsp;</strong>{player.position}</span>&nbsp;&nbsp;
-            <span><strong>Team:&nbsp;&nbsp;</strong>{player.team}</span>&nbsp;&nbsp;
-            {player.goals && <><span><strong>Goals:&nbsp;&nbsp;</strong>{player.goals}</span>&nbsp;&nbsp;</>}
-            <span style={{color:energyColors(player.energy)}}><strong>Energy:&nbsp;&nbsp;</strong>{player.energy}</span>&nbsp;&nbsp;
-            <button onClick={()=>prop.OnTrain(player)}>Train</button>&nbsp;&nbsp;
-            <button onClick={()=>prop.OnReset(player)}>Reset</button>&nbsp;&nbsp;
-            <button onClick={()=>prop.OnRest(player)}>Rest</button>&nbsp;&nbsp;
-            <button onClick={()=>prop.OnRemove(player.id)}>Remove</button>
-            </p>
-        ))}
-        </>
+        <div key={player.id}>
+            {isEditing ? (
+                <>
+                <label htmlFor="name">Name:</label>&nbsp;&nbsp;
+                <input name="name" onChange={handleEditChange} type="text" value={editForm.name ?? ""}/>&nbsp;&nbsp;
+
+                <label htmlFor="position">Position:</label>&nbsp;&nbsp;
+                <select name="position" value={editForm.position ?? ""} onChange={handleEditChange}>
+                 <option value="Forward">Forward</option>
+                 <option value="Midfielder">Midfielder</option>
+                 <option value="Defender">Defender</option>
+                 <option value="GoalKeeper">GoalKeeper</option>
+                </select>&nbsp;&nbsp;
+
+                <label htmlFor="team">Team:</label>&nbsp;&nbsp;
+                <select name="team" value={editForm.team ?? ""} onChange={handleEditChange}>
+                 <option value="Arsenal">Arsenal</option>
+                 <option value="Chelsea">Chelsea</option>
+                 <option value="Man City">Man City</option>
+                </select>&nbsp;&nbsp;
+
+                <label htmlFor="goals">Goals:</label>&nbsp;&nbsp;
+                <input name="goals" onChange={handleEditChange} type="number" value={editForm.goals ?? ""}/>&nbsp;&nbsp;
+                <button onClick={()=>saveEdit(player.id)}>save ✅</button>&nbsp;&nbsp;
+                <button onClick={()=>cancel()}>cancel ❌</button>
+                </>
+            ):(
+                <p key={player.id}>
+                <span><strong>Name :</strong>{player.name}</span>&nbsp;&nbsp; 
+                <span><strong>Team :</strong>{player.team}</span>&nbsp;&nbsp; 
+                <span><strong>Position :</strong>{player.position}</span>&nbsp;&nbsp; 
+                {player.goals && <><span><strong>Goals :</strong>{player.goals}</span>&nbsp;&nbsp;</>}
+                <span  style={{color:energyColor(player.energy)}}><strong>Energy :</strong>{player.energy}</span>&nbsp;&nbsp;
+                <button onClick={()=>prop.onTrain(player)}>Train</button>&nbsp;&nbsp;  
+                <button onClick={()=>prop.onReset(player)}>Reset</button>&nbsp;&nbsp;  
+                <button onClick={()=>prop.onRest(player)}>Rest</button>&nbsp;&nbsp;  
+                <button onClick={()=>startEdit(player)}>Edit</button>&nbsp;&nbsp;  
+                <button onClick={()=>prop.onRemove(player.id)}>Remove</button>&nbsp;&nbsp;  
+                </p>
+            )}
+        </div>
     )
+})}
+</>
+)
 }
 
 const SquadManager5=()=>{
-  const [players, setPlayers] = useState<Player[]>([
-   {id:1,name:"Saka", position:"Forward",team:"Arsenal",goals:12,energy:87}, 
-  ]);
+const [players, SetPlayers]=useState<Player[]>([
+{id:1,name:"Saka", position:"Forward",team:"Arsenal",goals:12,energy:87},
+]);
 
-  const [newPlayer, setNewPlayer] = useState({
+const[newPlayer, setNewPlayer]=useState({
+name:"",
+position:"Forward" as Position,
+team:"Arsenal" as Team,
+goals:""
+})
+
+const[error, setErrors]=useState({
     name:"",
-    position:"Forward" as Position,
-    team:"Arsenal" as Team,
     goals:""
-  })
+});
 
-  const [errors, setErrors] = useState({
-    name:"",
-    goals:""
-  })
+const clamper=(v:number)=> Math.max(0,Math.min(100,v));
 
-  const clamper = (v:number) =>Math.max(0, Math.min(100,v));
+const nextId = players.length > 0 ? Math.max(...players.map((p)=>p.id)) + 1:1;
 
-  const nextId = players.length > 0 ? Math.max(...players.map((p)=>p.id)) + 1: 1;
-
-  const handleTrain = (playerToUpdate:Player)=>{
-   setPlayers((prev)=>(
+const handleTrain=(playerToUpdate:Player)=>{
+SetPlayers((prev)=>(
     prev.map((player)=>(
-       player.id === playerToUpdate.id ?
-       {...player, energy:clamper(player.energy - 20)}:
-       player
+         player.id === playerToUpdate.id ?
+         {...player, energy:clamper(player.energy - 20)}:
+         player 
     ))
-   ))
-  }
+))
+}
 
-   const handleRest = (playerToUpdate:Player)=>{
-   setPlayers((prev)=>(
+const handleRest=(playerToUpdate:Player)=>{
+SetPlayers((prev)=>(
     prev.map((player)=>(
-       player.id === playerToUpdate.id ?
-       {...player, energy:clamper(player.energy + 20)}:
-       player
+         player.id === playerToUpdate.id ?
+         {...player, energy:clamper(player.energy + 20)}:
+         player 
     ))
-   ))
-  }
+))
+}
 
-  const handleReset = (playerToUpdate:Player)=>{
-   setPlayers((prev)=>(
+const handleReset=(playerToUpdate:Player)=>{
+SetPlayers((prev)=>(
     prev.map((player)=>(
-       player.id === playerToUpdate.id ?
-       {...player, energy:100}:
-       player
+         player.id === playerToUpdate.id ?
+         {...player, energy:100}:
+         player 
     ))
-   ))
-  }
+))
+}
 
-   const handleRemove = (playerid:number)=>{
-   setPlayers((prev)=>(
+const handleRemove=(playerId:number)=>{
+SetPlayers((prev)=>(
     prev.filter((player)=>(
-       player.id !== playerid
+         player.id === playerId
     ))
-   ))
-  }
+))
+}
 
-  const handleInputChange =(e:ChangeEvent<HTMLSelectElement | HTMLInputElement>)=>{
-    const {name, value} = e.target;
-    setNewPlayer((prev)=>({
-        ...prev,
-        [name]:value
-    }))
-  }
+const handleUpdate=(playerToUpdate:Player)=>{
+   SetPlayers((prev)=>(
+    prev.map((player)=>(
+         player.id === playerToUpdate.id ?
+         playerToUpdate : player
+    ))
+))
+}
 
-  const validateForm = ():Boolean=>{
+const handleInputChange=(e:ChangeEvent<HTMLSelectElement | HTMLInputElement>)=>{
+const {name,value} = e.target;
+setNewPlayer((prev)=>({
+...prev,
+[name]:value
+}))
+}
+
+const validateForm=():boolean=>{
     let isValid = true;
-    const newError = {
+    const newErrors={
         name:"",
         goals:""
-    };
+    }
 
     if(!newPlayer.name.trim()){
-        newError.name = "Name is required";
-        isValid = false;
-    }else{
-        const nameLowerCase = newPlayer.name.toLowerCase();
-        const duplicate = players.some((player)=>player.name.toLowerCase() === nameLowerCase );
+        newErrors.name="Name is required"
+        isValid = false
+    } else {
+        const nameLowerCase = newPlayer.name.trim().toLowerCase();
+        const duplicate = players.some((player)=>player.name.toLowerCase()=== nameLowerCase);
 
         if(duplicate){
-            newError.name = "name already exists"
-            isValid = false;
+        newErrors.name="player already exists"
+        isValid=false;
         }
     }
 
     if(newPlayer.goals){
-        const goalsNum = Number(newPlayer.goals);
-        if(isNaN(goalsNum) || goalsNum < 0 || typeof goalsNum!== "number"){
-            newError.goals = "Goals has to be anumber greater than 0"
-            isValid = false
-        }
+     const goalsNum = Number(newPlayer.goals);
+
+     if(isNaN(goalsNum) || goalsNum < 0){
+        newErrors.goals="Goals should be a number greater than 0";
+        isValid=false;
+     }
     }
 
-    setErrors(newError);
+    setErrors(newErrors);
     return isValid;
-  }
+}
 
+const handleAddPlayer=(e:FormEvent)=>{
+e.preventDefault();
 
-  const handleAddPlayer=(e:FormEvent)=>{
-   e.preventDefault();
+if(!validateForm()) return;
 
-   if(!validateForm()) return;
-
-   const newAddPlayer:Player={
+const playerAdd={
     id:nextId,
     name:newPlayer.name,
     position:newPlayer.position,
     team:newPlayer.team,
     goals:Number(newPlayer.goals),
     energy:100
-   }
+}
 
-   setPlayers((prev)=>([...prev,newAddPlayer]));
+SetPlayers((prev)=>([...prev,playerAdd]));
 
-   setNewPlayer({
+setErrors({
     name:"",
-    position:"Forward" as Position,
-    team:"Arsenal" as Team,
     goals:""
-   })
-  }
+});
 
-  return(
+setNewPlayer({
+name:"",
+position:"Forward" as Position,
+team:"Arsenal" as Team,
+goals:""
+})
+
+}
+
+return(
     <>
     <form onSubmit={handleAddPlayer}>
-    <label htmlFor="name">Name &nbsp;&nbsp;</label>&nbsp;&nbsp;
-    <input name="name" onChange={handleInputChange} type="text" value={newPlayer.name} placeholder="Eg Declan Rice"/>&nbsp;&nbsp;
-    {errors.name && <span style={{color:"red"}}>{errors.name}</span>}&nbsp;&nbsp;
-    
-        <label htmlFor="team">Team &nbsp;&nbsp;</label>&nbsp;&nbsp;
-        <select name="team" onChange={handleInputChange} value={newPlayer.team}>
-        <option value="Arsenal">Arsenal</option>
-        <option value="Liverpool">Liverpool</option>
-        <option value="Man Utd">Man Utd</option>
-        <option value="Man City">Man City</option>
-    </select>&nbsp;&nbsp;
+        <label htmlFor="name">Name:</label>&nbsp;&nbsp;
+        <input name="name" onChange={handleInputChange} type="text" value={newPlayer.name}/>&nbsp;&nbsp;
+        {error.name && <span style={{color:"red"}}>{error.name}</span>}
 
-    <label htmlFor="position">Position &nbsp;&nbsp;</label>&nbsp;&nbsp;
-    <select name="position" onChange={handleInputChange} value={newPlayer.position}>
-        <option value="Forward">Forward</option>
-        <option value="Midfielder">Midfielder</option>
-        <option value="Defender">Defender</option>
-        <option value="GoalKeeper">GoalKeeper</option>
-    </select>&nbsp;&nbsp;
+        <label htmlFor="position">Position:</label>&nbsp;&nbsp;
+        <select name="position" value={newPlayer.position} onChange={handleInputChange}>
+            <option value="Forward">Forward</option>
+            <option value="Midfielder">Midfielder</option>
+            <option value="Defender">Defender</option>
+            <option value="GoalKeeper">GoalKeeper</option>
+        </select>&nbsp;&nbsp;
 
-    <label htmlFor="goals">Goals &nbsp;&nbsp;</label>&nbsp;&nbsp;
-    <input name="goals" onChange={handleInputChange} type="number" value={newPlayer.name} placeholder="Eg 20"/>&nbsp;&nbsp;
-    {errors.goals && <span style={{color:"red"}}>{errors.goals}</span>}&nbsp;&nbsp;
+        <label htmlFor="team">Team:</label>&nbsp;&nbsp;
+        <select name="team" value={newPlayer.team} onChange={handleInputChange}>
+            <option value="Arsenal">Arsenal</option>
+            <option value="Chelsea">Chelsea</option>
+            <option value="Man City">Man City</option>
+        </select>&nbsp;&nbsp;
 
-    <button type="submit">Add ➕</button>&nbsp;&nbsp;
+        <label htmlFor="goals">Goals:</label>&nbsp;&nbsp;
+        <input name="goals" onChange={handleInputChange} type="number" value={newPlayer.goals}/>&nbsp;&nbsp;
+        <button type="submit">Add ➕</button>&nbsp;&nbsp;              
     </form>
 
-    {/* <PlayerProfile
+
+    <PlayerProfile
     players={players}
-    title="Squad Lists"
-    OnTrain={handleTrain}
-    OnReset={handleReset}
-    OnRest={handleRest}
-    OnRemove={handleRemove}
-    /> */}
+    onRemove={handleRemove}
+    onReset={handleReset}
+    onRest={handleRest}
+    onTrain={handleTrain}
+    onUpdate={handleUpdate}
+    />
     </>
-  )
+)
 }
 
 export default SquadManager5;
-
