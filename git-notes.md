@@ -32,4 +32,14 @@
 
    - Commit your code to the new branch
    ~command "git push origin [branch]"
+
+-To connect to a specific branch
+  - ~command "git fetch origin"
+  if stashed required then:
+  - ~command "git stash"
+    
+  if stashed required with untracked then:
+  - ~command "git stash --include-untracked"
+    
+  - ~command "git checkout [branch]"
      
