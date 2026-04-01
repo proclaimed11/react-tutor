@@ -33,7 +33,7 @@
    - Commit your code to the new branch
    ~command "git push origin [branch]"
 
--To connect to a specific branch
+-To connect or switch to a specific branch
   - ~command "git fetch origin"
   if stashed required then:
   - ~command "git stash"
